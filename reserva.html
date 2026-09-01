@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva tu Limpieza | Pristina</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">✨ Pristina</a>
+            <ul class="nav-links">
+                <li><a href="index.html#servicios">Servicios</a></li>
+                <li><a href="index.html#nosotros">Por qué elegirnos</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </header>
+
+    <main class="booking-page">
+        <div class="booking-container">
+            <div class="booking-form-area">
+                <h1>Personaliza tu limpieza</h1>
+                <p>Cuéntanos sobre tu espacio y te daremos un precio al instante. Sin sorpresas.</p>
+                
+                <form id="booking-form">
+                    <div class="form-group">
+                        <label for="habitaciones">Número de Habitaciones</label>
+                        <select id="habitaciones" class="calc-input">
+                            <option value="1">1 Habitación</option>
+                            <option value="2">2 Habitaciones</option>
+                            <option value="3">3 Habitaciones</option>
+                            <option value="4">4+ Habitaciones</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="banos">Número de Baños</label>
+                        <select id="banos" class="calc-input">
+                            <option value="1">1 Baño</option>
+                            <option value="2">2 Baños</option>
+                            <option value="3">3 Baños</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group extras-group">
+                        <label>Servicios Extra</label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="calc-checkbox" value="15"> Limpieza de Horno (+15€)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="calc-checkbox" value="20"> Limpieza de Ventanas (+20€)
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" class="calc-checkbox" value="25"> Interior de Nevera (+25€)
+                        </label>
+                    </div>
+                </form>
+            </div>
+
+            <div class="price-summary">
+                <h3>Tu Inversión Estimada</h3>
+                <div class="price-display">
+                    <span id="total-price">50</span><span>€</span>
+                </div>
+                <p class="price-note">Incluye productos ecológicos y seguro de responsabilidad.</p>
+                <button class="btn btn-primary btn-full" onclick="alert('¡Reserva confirmada ficticiamente!')">Confirmar Reserva</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-bottom" style="border:none;">
+            <p>&copy; 2026 Pristina Limpieza.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
