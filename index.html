@@ -3,23 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pristina | Limpieza Profesional con Personalidad</title>
+    <title>Pristina | Limpieza Integral para Empresas y Particulares</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Iconos de FontAwesome para redes y contacto -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="promo-bar">
-        🎉 ¡20% de descuento en tu primera limpieza profunda! Usa el código: <strong>BRILLO20</strong>
+    <!-- Banner de Cookies -->
+    <div id="cookie-banner" class="cookie-banner">
+        <div class="cookie-content">
+            <p>Utilizamos cookies propias y de terceros para mejorar nuestros servicios y mostrarle publicidad relacionada con sus preferencias. Si continúa navegando, consideramos que acepta su uso. <a href="legal.html#cookies">Leer política de cookies</a>.</p>
+            <button id="accept-cookies" class="btn btn-primary btn-sm">Aceptar todas</button>
+        </div>
     </div>
 
+    <!-- Botón Flotante WhatsApp -->
+    <a href="https://wa.me/34600000000?text=Hola,%20me%20gustaría%20recibir%20información%20sobre%20sus%20servicios%20de%20limpieza." class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Barra de Anuncios -->
+    <div class="promo-bar">
+        📞 Atención a empresas 24/7. Solicita tu auditoría de limpieza gratuita: <strong>+34 900 123 456</strong>
+    </div>
+
+    <!-- Navegación Fija -->
     <header class="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">✨ Pristina</a>
             <ul class="nav-links">
                 <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#nosotros">Por qué elegirnos</a></li>
+                <li><a href="#nosotros">Empresa</a></li>
+                <li><a href="#contacto">Contacto</a></li>
                 <li><a href="reserva.html" class="btn btn-nav">Cotizar ahora</a></li>
             </ul>
             <div class="hamburger">
@@ -31,72 +49,149 @@
     </header>
 
     <main>
+        <!-- Hero Section -->
         <section class="hero">
             <div class="hero-content">
-                <h1>Tu espacio impecable.<br><span class="highlight">Tu tiempo de vuelta.</span></h1>
-                <p>No somos una agencia de limpieza tradicional. Somos creadores de armonía. Dejamos tu hogar u oficina reluciente para que tú te enfoques en lo que realmente importa.</p>
+                <h1>Higiene profesional para <span class="highlight">espacios exigentes.</span></h1>
+                <p>Soluciones de limpieza integral para hogares, oficinas, comunidades y naves industriales. Personal cualificado, maquinaria industrial y productos homologados.</p>
                 <div class="hero-buttons">
-                    <a href="reserva.html" class="btn btn-primary">Reserva en 60 segundos</a>
-                    <a href="#servicios" class="btn btn-secondary">Ver servicios</a>
+                    <a href="reserva.html" class="btn btn-primary">Calculadora de Presupuesto</a>
+                    <a href="#contacto" class="btn btn-secondary">Hablar con un asesor</a>
                 </div>
             </div>
             <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1920&auto=format&fit=crop" alt="Sala de estar impecable y luminosa">
+                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=1920&auto=format&fit=crop" alt="Equipo de limpieza profesional trabajando">
             </div>
         </section>
 
+        <!-- Sección de Beneficios -->
         <section id="nosotros" class="features">
             <div class="section-header">
-                <h2>Cero estrés, 100% frescura</h2>
-                <p>Nos obsesiona el detalle tanto como a ti te obsesiona tu tranquilidad.</p>
+                <h2>Por qué confían en nosotros</h2>
+                <p>Nuestra metodología garantiza resultados impecables cumpliendo todas las normativas de seguridad e higiene laboral.</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="icon">🌿</div>
-                    <h3>Productos Eco-Friendly</h3>
-                    <p>Cuidamos de los tuyos y del planeta. Utilizamos fórmulas biodegradables que eliminan el 99% de las bacterias sin químicos agresivos.</p>
+                    <div class="icon"><i class="fas fa-file-contract"></i></div>
+                    <h3>Seguro de Responsabilidad</h3>
+                    <p>Operamos con cobertura total. Ante cualquier eventualidad en sus instalaciones, nuestra póliza de responsabilidad civil responde.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="icon">🛡️</div>
-                    <h3>Garantía de Sonrisa</h3>
-                    <p>Si no quedas completamente maravillado con nuestro trabajo, volvemos y lo repasamos gratis. Sin preguntas.</p>
+                    <div class="icon"><i class="fas fa-users-cog"></i></div>
+                    <h3>Personal Homologado</h3>
+                    <p>Toda nuestra plantilla está dada de alta en la Seguridad Social, uniformada y formada en prevención de riesgos laborales (PRL).</p>
                 </div>
                 <div class="feature-card">
-                    <div class="icon">⚡</div>
-                    <h3>Equipo Confiable</h3>
-                    <p>Nuestro personal pasa por rigurosos controles de confianza y capacitación continua. Tu casa está en las mejores manos.</p>
+                    <div class="icon"><i class="fas fa-leaf"></i></div>
+                    <h3>Productos Certificados</h3>
+                    <p>Uso exclusivo de químicos profesionales con fichas de seguridad, incluyendo líneas ecológicas (Ecolabel) bajo demanda.</p>
                 </div>
             </div>
         </section>
 
+        <!-- Sección de Servicios AMPLIADA -->
         <section id="servicios" class="services">
             <div class="section-header">
-                <h2>Magia para cada espacio</h2>
+                <h2>Catálogo de Servicios</h2>
+                <p>Adaptamos nuestros protocolos a la naturaleza de cada instalación.</p>
             </div>
             <div class="services-grid">
-                <div class="service-card">
-                    <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=800&auto=format&fit=crop" alt="Limpieza de mantenimiento">
-                    <div class="service-info">
-                        <h3>Mantenimiento Zen</h3>
-                        <p>La limpieza semanal o quincenal perfecta para mantener el caos a raya. Polvo, suelos, baños y cocina.</p>
-                        <a href="reserva.html" class="link-arrow">Agendar ➔</a>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop" alt="Limpieza Profunda">
-                    <div class="service-info">
-                        <h3>Detox Profundo</h3>
-                        <p>Ideal para cambios de estación o cuando tu casa necesita un "reinicio". Llegamos a esos rincones olvidados.</p>
-                        <a href="reserva.html" class="link-arrow">Agendar ➔</a>
-                    </div>
-                </div>
+                <!-- Empresas -->
                 <div class="service-card">
                     <img src="https://images.unsplash.com/photo-1628177142898-93e46e4653b4?q=80&w=800&auto=format&fit=crop" alt="Limpieza de oficinas">
                     <div class="service-info">
-                        <h3>Oficinas Brillantes</h3>
-                        <p>Un espacio de trabajo limpio dispara la productividad. Planes adaptados a los horarios de tu empresa.</p>
-                        <a href="reserva.html" class="link-arrow">Agendar ➔</a>
+                        <h3>Oficinas y Despachos</h3>
+                        <p>Mantenimiento diario o periódico. Vaciado de papeleras, desinfección de equipos informáticos, aseos y zonas comunes.</p>
+                        <a href="#contacto" class="link-arrow">Solicitar visita técnica ➔</a>
                     </div>
+                </div>
+                <!-- Naves / Industrial -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1580983546209-cecc32b90161?q=80&w=800&auto=format&fit=crop" alt="Limpieza industrial">
+                    <div class="service-info">
+                        <h3>Naves Industriales</h3>
+                        <p>Limpieza de pavimentos con barredoras y fregadoras mecánicas. Desengrase de maquinaria y limpieza en altura.</p>
+                        <a href="#contacto" class="link-arrow">Solicitar visita técnica ➔</a>
+                    </div>
+                </div>
+                <!-- Comunidades -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop" alt="Comunidades de vecinos">
+                    <div class="service-info">
+                        <h3>Comunidades de Vecinos</h3>
+                        <p>Mantenimiento de portales, escaleras, ascensores, garajes y abrillantado periódico de suelos.</p>
+                        <a href="#contacto" class="link-arrow">Solicitar presupuesto ➔</a>
+                    </div>
+                </div>
+                <!-- Fin de obra -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=800&auto=format&fit=crop" alt="Limpieza fin de obra">
+                    <div class="service-info">
+                        <h3>Fin de Obra y Reformas</h3>
+                        <p>Eliminación exhaustiva de polvo, restos de pintura, cemento y silicona. Dejamos el espacio listo para habitar o inaugurar.</p>
+                        <a href="#contacto" class="link-arrow">Consultar disponibilidad ➔</a>
+                    </div>
+                </div>
+                <!-- Residencial -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=800&auto=format&fit=crop" alt="Limpieza residencial">
+                    <div class="service-info">
+                        <h3>Residencial y Domicilios</h3>
+                        <p>Servicio doméstico de confianza. Limpiezas puntuales a fondo o mantenimiento semanal adaptado a tus horarios.</p>
+                        <a href="reserva.html" class="link-arrow">Cotizar online ➔</a>
+                    </div>
+                </div>
+                <!-- Cristales -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop" alt="Limpieza de cristales">
+                    <div class="service-info">
+                        <h3>Cristales y Fachadas</h3>
+                        <p>Técnicos especialistas en limpieza de ventanales, escaparates y fachadas acristaladas, incluso en altura con pértigas o elevadores.</p>
+                        <a href="#contacto" class="link-arrow">Solicitar presupuesto ➔</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Contacto Real -->
+        <section id="contacto" class="contact-section">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>Hablemos de tu proyecto</h2>
+                    <p>Cuéntanos qué necesitas y un técnico comercial elaborará un plan a tu medida en menos de 24 horas.</p>
+                    
+                    <ul class="contact-details">
+                        <li><i class="fas fa-phone-alt"></i> <a href="tel:+34900123456">+34 900 123 456</a></li>
+                        <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/34600000000" target="_blank">+34 600 000 000</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:presupuestos@pristina.com">presupuestos@pristina.com</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> Av. de la Industria 45, Pol. Ind. Sur, Madrid</li>
+                    </ul>
+                </div>
+                
+                <div class="contact-form-wrapper">
+                    <form id="main-contact-form" action="#" method="POST">
+                        <div class="form-row">
+                            <input type="text" class="calc-input" placeholder="Nombre o Razón Social" required>
+                            <input type="tel" class="calc-input" placeholder="Teléfono" required>
+                        </div>
+                        <input type="email" class="calc-input" placeholder="Correo electrónico" required style="margin-top:15px; width:100%;">
+                        <select class="calc-input" required style="margin-top:15px; width:100%;">
+                            <option value="">¿Qué servicio necesitas?</option>
+                            <option value="oficinas">Limpieza de Oficinas</option>
+                            <option value="naves">Limpieza Industrial</option>
+                            <option value="comunidades">Comunidades</option>
+                            <option value="residencial">Limpieza Residencial</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                        <textarea class="calc-input" placeholder="Detalles de la instalación (m2, frecuencia...)" rows="4" style="margin-top:15px; width:100%; resize:none;" required></textarea>
+                        
+                        <label class="checkbox-label" style="margin-top:15px; font-size:0.85rem;">
+                            <input type="checkbox" class="calc-checkbox" required>
+                            He leído y acepto la <a href="legal.html#privacidad">Política de Privacidad</a>.
+                        </label>
+                        
+                        <button type="submit" class="btn btn-primary btn-full" style="margin-top:15px;">Enviar solicitud</button>
+                    </form>
                 </div>
             </div>
         </section>
@@ -106,16 +201,28 @@
         <div class="footer-content">
             <div class="footer-brand">
                 <h2>✨ Pristina</h2>
-                <p>Transformando espacios, elevando vidas.</p>
+                <p>Excelencia en servicios de limpieza para profesionales y particulares.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                </div>
             </div>
             <div class="footer-links">
-                <h3>Contacto</h3>
-                <p>hola@pristina.com</p>
-                <p>+34 900 123 456</p>
+                <h3>Servicios</h3>
+                <p><a href="#servicios">Limpieza B2B</a></p>
+                <p><a href="#servicios">Comunidades</a></p>
+                <p><a href="#servicios">Limpieza Doméstica</a></p>
+            </div>
+            <div class="footer-links">
+                <h3>Legal</h3>
+                <p><a href="legal.html#aviso-legal">Aviso Legal</a></p>
+                <p><a href="legal.html#privacidad">Política de Privacidad</a></p>
+                <p><a href="legal.html#cookies">Política de Cookies</a></p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Pristina Limpieza. Todos los derechos reservados.</p>
+            <p>&copy; 2026 Pristina Limpieza y Mantenimiento SL. Todos los derechos reservados.</p>
         </div>
     </footer>
 

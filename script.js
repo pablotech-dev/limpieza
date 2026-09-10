@@ -11,62 +11,125 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Cerrar el menú al hacer clic en un enlace (para móviles)
     document.querySelectorAll('.nav-links li a').forEach(link => {
         link.addEventListener('click', () => {
-            if(hamburger.classList.contains('active')){
+            if(hamburger && hamburger.classList.contains('active')){
                 hamburger.classList.remove('active');
                 navLinks.classList.remove('active');
             }
         });
     });
 
+    // --- 2. GESTIÓN DE COOKIES LEGALES ---
+    const cookieBanner = document.getElementById('cookie-banner');
+    const acceptCookiesBtn = document.getElementById('accept-cookies');
 
-    // --- 2. CALCULADORA DE PRECIO INTERACTIVA (reserva.html) ---
-    // Solo se ejecutará si estamos en la página que contiene el formulario
+    // Comprueba si el usuario ya aceptó las cookies antes
+    if (cookieBanner && !localStorage.getItem('cookiesAccepted')) {
+        // Un pequeño timeout para que el banner entre con animación
+        setTimeout(() => {
+            cookieBanner.classList.add('show');
+        }, 1000);
+    }
+
+    if (acceptCookiesBtn) {
+        acceptCookiesBtn.addEventListener('click', () => {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookieBanner.classList.remove('show');
+        });
+    }
+
+    // --- 3. CALCULADORA INTERACTIVA Y ENVÍO POR WHATSAPP (reserva.html) ---
     const bookingForm = document.getElementById('booking-form');
     
     if (bookingForm) {
+        const nombreInput = document.getElementById('cliente-nombre');
         const habitacionesSelect = document.getElementById('habitaciones');
         const banosSelect = document.getElementById('banos');
-        const checkboxes = document.querySelectorAll('.calc-checkbox');
+        const checkboxes = document.querySelectorAll('.calc-checkbox:not(#legal-check)');
+        const legalCheck = document.getElementById('legal-check');
         const priceDisplay = document.getElementById('total-price');
+        const btnWhatsapp = document.getElementById('btn-whatsapp-reserva');
 
-        // Precio base
-        const BASE_PRICE = 30;
+        const BASE_PRICE = 45; // Precio base realista (desplazamiento, productos)
 
         // Función para calcular el total
         const calculatePrice = () => {
             let total = BASE_PRICE;
 
-            // Lógica ficticia de coste: +20€ por habitación, +15€ por baño
             const numHabitaciones = parseInt(habitacionesSelect.value);
             const numBanos = parseInt(banosSelect.value);
 
-            total += (numHabitaciones * 20);
+            // Escala de precios realista
+            total += (numHabitaciones * 25);
             total += (numBanos * 15);
 
-            // Sumar los servicios extras marcados
             checkboxes.forEach(box => {
                 if (box.checked) {
                     total += parseInt(box.value);
                 }
             });
 
-            // Animación sencilla de conteo para hacer el cambio más fluido
-            animateValue(priceDisplay, parseInt(priceDisplay.innerText), total, 300);
+            animateValue(priceDisplay, parseInt(priceDisplay.innerText) || BASE_PRICE, total, 300);
+            return total;
         };
 
-        // Escuchar cambios en los selectores y checkboxes
+        // Escuchar cambios para recalcular precio al instante
         habitacionesSelect.addEventListener('change', calculatePrice);
         banosSelect.addEventListener('change', calculatePrice);
         checkboxes.forEach(box => box.addEventListener('change', calculatePrice));
 
         // Inicializar precio al cargar
         calculatePrice();
+
+        // Gestionar el envío por WhatsApp
+        btnWhatsapp.addEventListener('click', () => {
+            // Validaciones básicas
+            if (!nombreInput.value.trim()) {
+                alert("Por favor, introduce tu nombre.");
+                nombreInput.focus();
+                return;
+            }
+            if (!legalCheck.checked) {
+                alert("Debes aceptar la Política de Privacidad para continuar.");
+                return;
+            }
+
+            // Recopilar datos
+            const nombre = nombreInput.value;
+            const habsTexto = habitacionesSelect.options[habitacionesSelect.selectedIndex].text;
+            const banosTexto = banosSelect.options[banosSelect.selectedIndex].text;
+            const totalEstimado = calculatePrice();
+
+            let extrasTexto = "";
+            checkboxes.forEach(box => {
+                if (box.checked) {
+                    extrasTexto += `- ${box.getAttribute('data-name')}\n`;
+                }
+            });
+
+            // Construir mensaje de WhatsApp
+            let mensaje = `Hola Pristina, soy ${nombre}. Me gustaría solicitar un servicio de limpieza residencial.\n\n`;
+            mensaje += `*Detalles de mi vivienda:*\n`;
+            mensaje += `🏠 ${habsTexto}\n`;
+            mensaje += `🛁 ${banosTexto}\n`;
+            
+            if (extrasTexto) {
+                mensaje += `\n*Extras solicitados:*\n${extrasTexto}`;
+            }
+
+            mensaje += `\n💰 *Presupuesto calculado en la web:* ${totalEstimado}€ (aprox.)\n\n`;
+            mensaje += `Quedo a la espera de que me contacten para confirmar disponibilidad. ¡Gracias!`;
+
+            // Codificar URL y abrir WhatsApp (cambia el teléfono aquí por el tuyo)
+            const telefonoEmpresa = "34600000000"; 
+            const urlWhatsapp = `https://wa.me/${telefonoEmpresa}?text=${encodeURIComponent(mensaje)}`;
+            
+            window.open(urlWhatsapp, '_blank');
+        });
     }
 
-    // Función auxiliar para animar el cambio numérico
+    // --- Función auxiliar para animación de números ---
     function animateValue(obj, start, end, duration) {
         let startTimestamp = null;
         const step = (timestamp) => {

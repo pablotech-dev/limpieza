@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reserva tu Limpieza | Pristina</title>
+    <title>Cotizador Residencial | Pristina</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,7 +14,7 @@
             <a href="index.html" class="logo">✨ Pristina</a>
             <ul class="nav-links">
                 <li><a href="index.html#servicios">Servicios</a></li>
-                <li><a href="index.html#nosotros">Por qué elegirnos</a></li>
+                <li><a href="index.html#contacto">Contacto</a></li>
             </ul>
             <div class="hamburger">
                 <span class="bar"></span>
@@ -26,17 +27,25 @@
     <main class="booking-page">
         <div class="booking-container">
             <div class="booking-form-area">
-                <h1>Personaliza tu limpieza</h1>
-                <p>Cuéntanos sobre tu espacio y te daremos un precio al instante. Sin sorpresas.</p>
+                <h1>Cotizador Residencial</h1>
+                <p>Calcula tu presupuesto al instante. Para oficinas o naves, por favor usa el <a href="index.html#contacto">formulario de empresa</a>.</p>
                 
                 <form id="booking-form">
+                    <!-- Nuevos campos de contacto real -->
+                    <div class="form-row">
+                        <div class="form-group" style="width: 100%;">
+                            <label for="cliente-nombre">Tu Nombre</label>
+                            <input type="text" id="cliente-nombre" class="calc-input" placeholder="Ej. María García" required>
+                        </div>
+                    </div>
+
                     <div class="form-group">
-                        <label for="habitaciones">Número de Habitaciones</label>
+                        <label for="habitaciones">Tamaño de la vivienda</label>
                         <select id="habitaciones" class="calc-input">
-                            <option value="1">1 Habitación</option>
-                            <option value="2">2 Habitaciones</option>
-                            <option value="3">3 Habitaciones</option>
-                            <option value="4">4+ Habitaciones</option>
+                            <option value="1">Piso pequeño (1-2 habs) / Hasta 60m2</option>
+                            <option value="2">Piso mediano (3 habs) / 60m2 - 100m2</option>
+                            <option value="3">Piso grande (4+ habs) / 100m2 - 150m2</option>
+                            <option value="4">Chalet o Casa / Más de 150m2</option>
                         </select>
                     </div>
 
@@ -45,39 +54,47 @@
                         <select id="banos" class="calc-input">
                             <option value="1">1 Baño</option>
                             <option value="2">2 Baños</option>
-                            <option value="3">3 Baños</option>
+                            <option value="3">3 o más Baños</option>
                         </select>
                     </div>
 
                     <div class="form-group extras-group">
-                        <label>Servicios Extra</label>
+                        <label>Servicios Extra (Opcionales)</label>
                         <label class="checkbox-label">
-                            <input type="checkbox" class="calc-checkbox" value="15"> Limpieza de Horno (+15€)
+                            <input type="checkbox" class="calc-checkbox" value="15" data-name="Limpieza de Horno"> Limpieza interior de Horno (+15€)
                         </label>
                         <label class="checkbox-label">
-                            <input type="checkbox" class="calc-checkbox" value="20"> Limpieza de Ventanas (+20€)
+                            <input type="checkbox" class="calc-checkbox" value="25" data-name="Limpieza de Ventanas"> Limpieza de Ventanas (+25€)
                         </label>
                         <label class="checkbox-label">
-                            <input type="checkbox" class="calc-checkbox" value="25"> Interior de Nevera (+25€)
+                            <input type="checkbox" class="calc-checkbox" value="30" data-name="Limpieza de Tapicería"> Limpieza de Sofá/Tapicería (+30€)
                         </label>
                     </div>
+                    
+                    <label class="checkbox-label" style="font-size:0.85rem; margin-top:20px;">
+                        <input type="checkbox" id="legal-check" class="calc-checkbox" required>
+                        Acepto la <a href="legal.html#privacidad" target="_blank">política de privacidad</a>.
+                    </label>
                 </form>
             </div>
 
             <div class="price-summary">
-                <h3>Tu Inversión Estimada</h3>
+                <h3>Presupuesto Estimado</h3>
                 <div class="price-display">
-                    <span id="total-price">50</span><span>€</span>
+                    <span id="total-price">55</span><span>€</span>
                 </div>
-                <p class="price-note">Incluye productos ecológicos y seguro de responsabilidad.</p>
-                <button class="btn btn-primary btn-full" onclick="alert('¡Reserva confirmada ficticiamente!')">Confirmar Reserva</button>
+                <p class="price-note">Precio estimado IVA no incl. El precio final puede variar tras valorar el nivel de suciedad.</p>
+                <!-- Botón funcional hacia WhatsApp -->
+                <button type="button" id="btn-whatsapp-reserva" class="btn btn-primary btn-full">
+                    <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
+                </button>
             </div>
         </div>
     </main>
 
     <footer>
         <div class="footer-bottom" style="border:none;">
-            <p>&copy; 2026 Pristina Limpieza.</p>
+            <p>&copy; 2026 Pristina Limpieza y Mantenimiento SL.</p>
         </div>
     </footer>
 
