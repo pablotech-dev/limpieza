@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cotizador Residencial | Pristina</title>
+    <title>Calculadora de Presupuestos | Pristina</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
@@ -27,77 +27,129 @@
     <main class="booking-page">
         <div class="booking-container">
             <div class="booking-form-area">
-                <h1>Cotizador Residencial</h1>
-                <p>Calcula tu presupuesto al instante. Para oficinas o naves, por favor usa el <a href="index.html#contacto">formulario de empresa</a>.</p>
+                <h1>Calculadora de Presupuesto</h1>
+                <p>Selecciona el tipo de servicio para obtener una <strong>estimación aproximada</strong> de los costes antes de contactarnos.</p>
                 
                 <form id="booking-form">
-                    <!-- Nuevos campos de contacto real -->
                     <div class="form-row">
                         <div class="form-group" style="width: 100%;">
-                            <label for="cliente-nombre">Tu Nombre</label>
-                            <input type="text" id="cliente-nombre" class="calc-input" placeholder="Ej. María García" required>
+                            <label for="cliente-nombre">Nombre o Empresa</label>
+                            <input type="text" id="cliente-nombre" class="calc-input" placeholder="Ej. María García / Empresa S.L." required>
                         </div>
                     </div>
 
+                    <!-- Selector Principal de Servicio -->
                     <div class="form-group">
-                        <label for="habitaciones">Tamaño de la vivienda</label>
-                        <select id="habitaciones" class="calc-input">
-                            <option value="1">Piso pequeño (1-2 habs) / Hasta 60m2</option>
-                            <option value="2">Piso mediano (3 habs) / 60m2 - 100m2</option>
-                            <option value="3">Piso grande (4+ habs) / 100m2 - 150m2</option>
-                            <option value="4">Chalet o Casa / Más de 150m2</option>
+                        <label for="tipo-servicio">¿Qué servicio necesitas?</label>
+                        <select id="tipo-servicio" class="calc-input" style="border-color: var(--clr-primary); font-weight: 600;">
+                            <option value="residencial">Limpieza Residencial (Hogar)</option>
+                            <option value="oficinas">Limpieza de Oficinas / Locales</option>
+                            <option value="naves">Limpieza de Naves Industriales</option>
+                            <option value="comunidades">Limpieza de Comunidades</option>
+                            <option value="obra">Limpieza Fin de Obra</option>
+                            <option value="cristales">Limpieza de Cristales y Fachadas</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="banos">Número de Baños</label>
-                        <select id="banos" class="calc-input">
-                            <option value="1">1 Baño</option>
-                            <option value="2">2 Baños</option>
-                            <option value="3">3 o más Baños</option>
-                        </select>
+                    <!-- SECCIÓN 1: RESIDENCIAL -->
+                    <div id="sec-residencial" class="dynamic-section">
+                        <div class="form-group">
+                            <label for="habitaciones">Tamaño de la vivienda</label>
+                            <select id="habitaciones" class="calc-input">
+                                <option value="1">Piso pequeño (1-2 habs) / Hasta 60m2</option>
+                                <option value="2">Piso mediano (3 habs) / 60m2 - 100m2</option>
+                                <option value="3">Piso grande (4+ habs) / 100m2 - 150m2</option>
+                                <option value="4">Chalet o Casa / Más de 150m2</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="banos">Número de Baños</label>
+                            <select id="banos" class="calc-input">
+                                <option value="1">1 Baño</option>
+                                <option value="2">2 Baños</option>
+                                <option value="3">3 o más Baños</option>
+                            </select>
+                        </div>
+                        <div class="form-group extras-group">
+                            <label>Servicios Extra (Opcionales)</label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="calc-checkbox chk-residencial" value="15" data-name="Limpieza de Horno"> Limpieza interior de Horno (+15€)
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="calc-checkbox chk-residencial" value="25" data-name="Limpieza de Ventanas"> Limpieza de Ventanas (+25€)
+                            </label>
+                        </div>
                     </div>
 
-                    <div class="form-group extras-group">
-                        <label>Servicios Extra (Opcionales)</label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" class="calc-checkbox" value="15" data-name="Limpieza de Horno"> Limpieza interior de Horno (+15€)
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" class="calc-checkbox" value="25" data-name="Limpieza de Ventanas"> Limpieza de Ventanas (+25€)
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" class="calc-checkbox" value="30" data-name="Limpieza de Tapicería"> Limpieza de Sofá/Tapicería (+30€)
-                        </label>
+                    <!-- SECCIÓN 2: METROS CUADRADOS (Oficinas, Naves, Comunidades, Obra) -->
+                    <div id="sec-metros" class="dynamic-section d-none">
+                        <div class="form-row">
+                            <div class="form-group" style="width: 48%;">
+                                <label for="metros-cuadrados">Metros cuadrados (aprox.)</label>
+                                <input type="number" id="metros-cuadrados" class="calc-input" value="100" min="20" step="10">
+                            </div>
+                            <div class="form-group" style="width: 48%;">
+                                <label for="frecuencia-m2">Frecuencia</label>
+                                <select id="frecuencia-m2" class="calc-input">
+                                    <option value="puntual">Limpieza Puntual a fondo</option>
+                                    <option value="semanal">Mantenimiento Semanal</option>
+                                    <option value="diario">Mantenimiento Diario (L-V)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group extras-group" id="extras-b2b">
+                            <label>Extras Especiales</label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="calc-checkbox chk-metros" value="50" data-name="Maquinaria industrial"> Uso de maquinaria específica (fregadoras/barredoras) (+50€)
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="calc-checkbox chk-metros" value="30" data-name="Desinfección Ozono"> Desinfección con Ozono (+30€)
+                            </label>
+                        </div>
                     </div>
-                    
-                    <label class="checkbox-label" style="font-size:0.85rem; margin-top:20px;">
-                        <input type="checkbox" id="legal-check" class="calc-checkbox" required>
-                        Acepto la <a href="legal.html#privacidad" target="_blank">política de privacidad</a>.
-                    </label>
+
+                    <!-- SECCIÓN 3: POR HORAS (Cristales) -->
+                    <div id="sec-horas" class="dynamic-section d-none">
+                        <div class="form-group">
+                            <label for="horas-estimadas">Horas estimadas de servicio</label>
+                            <input type="number" id="horas-estimadas" class="calc-input" value="3" min="2">
+                            <small>Mínimo 2 horas por desplazamiento de técnicos especializados.</small>
+                        </div>
+                        <div class="form-group extras-group">
+                            <label>Requisitos Especiales</label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="calc-checkbox chk-horas" value="40" data-name="Trabajo en altura (Grúa/Arnés)"> Requiere trabajo en altura (Grúa/Arnés) (+40€)
+                            </label>
+                        </div>
+                    </div>
                 </form>
             </div>
+            
+            <div class="booking-summary-area">
+                <div class="summary-card">
+                    <h3>Resumen de la Estimación</h3>
+                    <ul class="summary-details">
+                        <li><strong>Servicio:</strong> <span id="sum-servicio">Residencial</span></li>
+                        <li id="sum-param"><strong>Dimensiones:</strong> <span id="sum-dim">Piso pequeño / 1 Baño</span></li>
+                    </ul>
+                    <div class="total-price">
+                        <span class="price-label">Coste Aproximado*</span>
+                        <span class="price-value" id="total-price">0€</span>
+                    </div>
+                    
+                    <div class="disclaimer-box">
+                        <i class="fas fa-info-circle"></i>
+                        <p>* <strong>Nota Legal:</strong> Este valor es una estimación basada en tarifas promedio. El presupuesto final requerirá una valoración técnica y no supone una oferta vinculante.</p>
+                    </div>
 
-            <div class="price-summary">
-                <h3>Presupuesto Estimado</h3>
-                <div class="price-display">
-                    <span id="total-price">55</span><span>€</span>
+                    <button type="button" id="btn-whatsapp" class="btn btn-primary btn-full">
+                        <i class="fab fa-whatsapp"></i> Solicitar Presupuesto Exacto
+                    </button>
+                    <p style="text-align: center; font-size: 0.8rem; margin-top: 10px; color: #666;">Te derivaremos a WhatsApp con estos datos para afinar la cotización sin compromiso.</p>
                 </div>
-                <p class="price-note">Precio estimado IVA no incl. El precio final puede variar tras valorar el nivel de suciedad.</p>
-                <!-- Botón funcional hacia WhatsApp -->
-                <button type="button" id="btn-whatsapp-reserva" class="btn btn-primary btn-full">
-                    <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
-                </button>
             </div>
         </div>
     </main>
-
-    <footer>
-        <div class="footer-bottom" style="border:none;">
-            <p>&copy; 2026 Pristina Limpieza y Mantenimiento SL.</p>
-        </div>
-    </footer>
-
     <script src="script.js"></script>
 </body>
 </html>
