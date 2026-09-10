@@ -24,9 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cookieBanner = document.getElementById('cookie-banner');
     const acceptCookiesBtn = document.getElementById('accept-cookies');
 
-    // Comprueba si el usuario ya aceptó las cookies antes
     if (cookieBanner && !localStorage.getItem('cookiesAccepted')) {
-        // Un pequeño timeout para que el banner entre con animación
         setTimeout(() => {
             cookieBanner.classList.add('show');
         }, 1000);
@@ -44,89 +42,161 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (bookingForm) {
         const nombreInput = document.getElementById('cliente-nombre');
+        const tipoServicioSelect = document.getElementById('tipo-servicio');
+        
+        // Secciones dinámicas
+        const secResidencial = document.getElementById('sec-residencial');
+        const secMetros = document.getElementById('sec-metros');
+        const secHoras = document.getElementById('sec-horas');
+
+        // Campos Residencial
         const habitacionesSelect = document.getElementById('habitaciones');
         const banosSelect = document.getElementById('banos');
+        
+        // Campos Metros
+        const metrosInput = document.getElementById('metros-cuadrados');
+        const frecuenciaSelect = document.getElementById('frecuencia-m2');
+        
+        // Campos Horas
+        const horasInput = document.getElementById('horas-estimadas');
+
+        // Checkboxes y Resumen
         const checkboxes = document.querySelectorAll('.calc-checkbox:not(#legal-check)');
         const legalCheck = document.getElementById('legal-check');
         const priceDisplay = document.getElementById('total-price');
+        const sumServicio = document.getElementById('sum-servicio');
+        const sumDim = document.getElementById('sum-dim');
         const btnWhatsapp = document.getElementById('btn-whatsapp-reserva');
 
-        const BASE_PRICE = 45; // Precio base realista (desplazamiento, productos)
+        // Función para cambiar la sección visible según el servicio
+        const updateVisibleSection = () => {
+            const servicio = tipoServicioSelect.value;
+            secResidencial.classList.add('d-none');
+            secMetros.classList.add('d-none');
+            secHoras.classList.add('d-none');
 
-        // Función para calcular el total
+            if (servicio === 'residencial') {
+                secResidencial.classList.remove('d-none');
+            } else if (['oficinas', 'naves', 'comunidades', 'obra'].includes(servicio)) {
+                secMetros.classList.remove('d-none');
+            } else if (servicio === 'cristales') {
+                secHoras.classList.remove('d-none');
+            }
+            calculatePrice();
+        };
+
+        // Función para calcular el total dinámicamente
         const calculatePrice = () => {
-            let total = BASE_PRICE;
+            const servicio = tipoServicioSelect.value;
+            const servicioTexto = tipoServicioSelect.options[tipoServicioSelect.selectedIndex].text;
+            let total = 0;
+            let detalleDim = "";
 
-            const numHabitaciones = parseInt(habitacionesSelect.value);
-            const numBanos = parseInt(banosSelect.value);
+            if (sumServicio) sumServicio.innerText = servicioTexto;
 
-            // Escala de precios realista
-            total += (numHabitaciones * 25);
-            total += (numBanos * 15);
+            if (servicio === 'residencial') {
+                total = 45;
+                const numHabitaciones = parseInt(habitacionesSelect.value);
+                const numBanos = parseInt(banosSelect.value);
+                total += (numHabitaciones * 25);
+                total += (numBanos * 15);
+                
+                const habTexto = habitacionesSelect.options[habitacionesSelect.selectedIndex].text;
+                const banoTexto = banosSelect.options[banosSelect.selectedIndex].text;
+                detalleDim = `${habTexto} / ${banoTexto}`;
 
-            checkboxes.forEach(box => {
-                if (box.checked) {
-                    total += parseInt(box.value);
-                }
-            });
+                document.querySelectorAll('.chk-residencial').forEach(box => {
+                    if (box.checked) total += parseInt(box.value);
+                });
 
-            animateValue(priceDisplay, parseInt(priceDisplay.innerText) || BASE_PRICE, total, 300);
+            } else if (['oficinas', 'naves', 'comunidades', 'obra'].includes(servicio)) {
+                const m2 = Math.max(20, parseInt(metrosInput.value) || 0);
+                let precioBaseM2 = 2.5;
+                if (servicio === 'obra') precioBaseM2 = 4.0;
+                if (servicio === 'naves') precioBaseM2 = 2.0;
+
+                total = m2 * precioBaseM2;
+
+                const freq = frecuenciaSelect.value;
+                if (freq === 'semanal') total *= 0.85;
+                if (freq === 'diario') total *= 0.70;
+
+                detalleDim = `${m2} m² (${frecuenciaSelect.options[frecuenciaSelect.selectedIndex].text})`;
+
+                document.querySelectorAll('.chk-metros').forEach(box => {
+                    if (box.checked) total += parseInt(box.value);
+                });
+
+            } else if (servicio === 'cristales') {
+                const horas = Math.max(2, parseInt(horasInput.value) || 0);
+                total = horas * 25;
+                detalleDim = `${horas} Horas estimadas`;
+
+                document.querySelectorAll('.chk-horas').forEach(box => {
+                    if (box.checked) total += parseInt(box.value);
+                });
+            }
+
+            total = Math.round(total);
+            if (sumDim) sumDim.innerText = detalleDim;
+            if (priceDisplay) animateValue(priceDisplay, parseInt(priceDisplay.innerText) || 0, total, 300);
+
             return total;
         };
 
-        // Escuchar cambios para recalcular precio al instante
+        // Escuchar eventos para recalcular
+        tipoServicioSelect.addEventListener('change', updateVisibleSection);
         habitacionesSelect.addEventListener('change', calculatePrice);
         banosSelect.addEventListener('change', calculatePrice);
+        metrosInput.addEventListener('input', calculatePrice);
+        frecuenciaSelect.addEventListener('change', calculatePrice);
+        horasInput.addEventListener('input', calculatePrice);
         checkboxes.forEach(box => box.addEventListener('change', calculatePrice));
 
-        // Inicializar precio al cargar
-        calculatePrice();
+        // Inicializar al cargar
+        updateVisibleSection();
 
-        // Gestionar el envío por WhatsApp
-        btnWhatsapp.addEventListener('click', () => {
-            // Validaciones básicas
-            if (!nombreInput.value.trim()) {
-                alert("Por favor, introduce tu nombre.");
-                nombreInput.focus();
-                return;
-            }
-            if (!legalCheck.checked) {
-                alert("Debes aceptar la Política de Privacidad para continuar.");
-                return;
-            }
-
-            // Recopilar datos
-            const nombre = nombreInput.value;
-            const habsTexto = habitacionesSelect.options[habitacionesSelect.selectedIndex].text;
-            const banosTexto = banosSelect.options[banosSelect.selectedIndex].text;
-            const totalEstimado = calculatePrice();
-
-            let extrasTexto = "";
-            checkboxes.forEach(box => {
-                if (box.checked) {
-                    extrasTexto += `- ${box.getAttribute('data-name')}\n`;
+        // Envío de presupuesto por WhatsApp
+        if (btnWhatsapp) {
+            btnWhatsapp.addEventListener('click', () => {
+                if (!nombreInput.value.trim()) {
+                    alert("Por favor, introduce tu nombre o el de tu empresa.");
+                    nombreInput.focus();
+                    return;
                 }
+                if (legalCheck && !legalCheck.checked) {
+                    alert("Debes aceptar la Política de Privacidad para continuar.");
+                    return;
+                }
+
+                const nombre = nombreInput.value;
+                const servicioTexto = tipoServicioSelect.options[tipoServicioSelect.selectedIndex].text;
+                const totalEstimado = calculatePrice();
+                const detalleDim = sumDim ? sumDim.innerText : "";
+
+                let extrasTexto = "";
+                checkboxes.forEach(box => {
+                    if (box.checked && box.offsetParent !== null) {
+                        extrasTexto += `- ${box.getAttribute('data-name')}\n`;
+                    }
+                });
+
+                let mensaje = `Hola Pristina, soy ${nombre}.\nMe gustaría solicitar información sobre el servicio: *${servicioTexto}*.\n\n`;
+                mensaje += `*Detalles:* ${detalleDim}\n`;
+                
+                if (extrasTexto) {
+                    mensaje += `*Extras solicitados:*\n${extrasTexto}`;
+                }
+
+                mensaje += `\n💰 *Presupuesto calculado en la web:* ${totalEstimado}€ (aprox.)\n\n`;
+                mensaje += `Quedo a la espera de que me contacten para confirmar disponibilidad. ¡Gracias!`;
+
+                const telefonoEmpresa = "34600000000"; 
+                const urlWhatsapp = `https://wa.me/${telefonoEmpresa}?text=${encodeURIComponent(mensaje)}`;
+                
+                window.open(urlWhatsapp, '_blank');
             });
-
-            // Construir mensaje de WhatsApp
-            let mensaje = `Hola Pristina, soy ${nombre}. Me gustaría solicitar un servicio de limpieza residencial.\n\n`;
-            mensaje += `*Detalles de mi vivienda:*\n`;
-            mensaje += `🏠 ${habsTexto}\n`;
-            mensaje += `🛁 ${banosTexto}\n`;
-            
-            if (extrasTexto) {
-                mensaje += `\n*Extras solicitados:*\n${extrasTexto}`;
-            }
-
-            mensaje += `\n💰 *Presupuesto calculado en la web:* ${totalEstimado}€ (aprox.)\n\n`;
-            mensaje += `Quedo a la espera de que me contacten para confirmar disponibilidad. ¡Gracias!`;
-
-            // Codificar URL y abrir WhatsApp (cambia el teléfono aquí por el tuyo)
-            const telefonoEmpresa = "34600000000"; 
-            const urlWhatsapp = `https://wa.me/${telefonoEmpresa}?text=${encodeURIComponent(mensaje)}`;
-            
-            window.open(urlWhatsapp, '_blank');
-        });
+        }
     }
 
     // --- Función auxiliar para animación de números ---
@@ -135,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const step = (timestamp) => {
             if (!startTimestamp) startTimestamp = timestamp;
             const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            obj.innerHTML = Math.floor(progress * (end - start) + start);
+            obj.innerHTML = Math.floor(progress * (end - start) + start) + '€';
             if (progress < 1) {
                 window.requestAnimationFrame(step);
             }
